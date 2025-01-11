@@ -223,7 +223,6 @@ class TimeFeedforwardEmbedding(nn.Module):
 class Attention(nn.Module):
     def __init__(self, input_size, attention_dim):
         super().__init__()
-        # 注意力维度
         self.attention_dim = attention_dim
         self.u_omega = nn.Parameter(nn.init.xavier_uniform_(torch.empty(size=(attention_dim, 1))))
         self.w_omega = nn.Parameter(nn.init.xavier_uniform_(torch.empty(size=(input_size, attention_dim))))
