@@ -2,11 +2,9 @@ import _pickle as pickle
 import os
 import random
 import time
-
 import numpy as np
 import torch
 import torch.optim as optim
-
 from metrics import evaluate_codes
 from models.model import Model
 from utils import EHRDataset, format_time, medical_codes_loss
