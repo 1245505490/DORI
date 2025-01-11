@@ -9,7 +9,7 @@ import torch.optim as optim
 
 from metrics import evaluate_codes
 from models.model import Model
-from utils import EHRDataset, format_time, medical_codes_loss, MultiStepLRScheduler
+from utils import EHRDataset, format_time, medical_codes_loss
 
 
 def load_data(encoded_path):
@@ -162,11 +162,7 @@ if __name__ == '__main__':
     model = Model(config, hyper_params).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=0.01)
     loss_fn = medical_codes_loss
-    if task == 'd':
-        scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_schedule_fn)
-    else:
-        scheduler = MultiStepLRScheduler(optimizer, epochs, task_conf[task]['lr']['init_lr'],
-                                         task_conf[task]['lr']['milestones'], task_conf[task]['lr']['lrs'])
+    scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_schedule_fn)
     pytorch_total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"params num: {pytorch_total_params}")
     alpha = torch.tensor(0.98, device=device, requires_grad=True)
