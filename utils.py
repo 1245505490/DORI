@@ -29,7 +29,6 @@ class EHRDataset:
         return code_x, pro_x, visit_lens, y, adm_time, dis_time
 
     def on_epoch_end(self):
-        # 每个epoch结束执行该函数
         if self.shuffle:
             np.random.shuffle(self.idx)
 
